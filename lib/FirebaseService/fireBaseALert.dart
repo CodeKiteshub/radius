@@ -1,0 +1,253 @@
+import 'package:flutter/material.dart';
+import '../AppManager/appColors.dart';
+import '../main.dart';
+
+class FireBaseAlert {
+  show(context, alert, msg, image,
+      {String? firstButtonName,
+      Function? firstButtonPressEvent,
+      String? secondButtonName,
+      Function? secondButtonPressEvent,
+      bool? showCancelButton,
+      bool? showOkButton,
+      bool? disableDuration,
+      bool? checkIcon}) {
+    print('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+    var canPressOk = true;
+    return showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Transform.scale(
+              scale: a1.value,
+              child: Opacity(
+                opacity: a1.value,
+                child: WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: Scaffold(
+                    backgroundColor: Colors.transparent,
+                    body: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: AppColor().primaryColor,
+                                            borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                            )),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                checkIcon ?? false
+                                                    ? Icons.check
+                                                    : Icons.info_outline,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  alert.toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 200,
+                                                  child: (image == null ||
+                                                          image == '')
+                                                      ? Container()
+                                                      : Image(
+                                                          image: NetworkImage(
+                                                              image),
+                                                        ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Text(
+                                                  msg.toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              8,
+                                              0,
+                                              8,
+                                              0,
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Visibility(
+                                                  visible:
+                                                      showCancelButton ?? false,
+                                                  child: TextButton(
+                                                    style: TextButton.styleFrom(
+                                                      foregroundColor: Colors.black,
+                                                      padding:
+                                                          const EdgeInsets.all(8),
+                                                    ),
+                                                    onPressed: () {
+                                                      if (canPressOk) {
+                                                        canPressOk = false;
+                                                        Navigator.pop(context);
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      'Cancel',
+                                                      style: TextStyle(
+                                                          color: AppColor()
+                                                              .primaryColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Visibility(
+                                                  visible:
+                                                      secondButtonName != null,
+                                                  child: TextButton(
+                                                    style: TextButton.styleFrom(
+                                                      foregroundColor: Colors.black,
+                                                      padding:
+                                                          const EdgeInsets.all(8),
+                                                    ),
+                                                    onPressed: () {
+                                                      if (canPressOk) {
+                                                        canPressOk = false;
+                                                        secondButtonPressEvent!();
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      secondButtonName
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: AppColor()
+                                                              .primaryColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Visibility(
+                                                  visible:
+                                                      firstButtonName != null,
+                                                  child: TextButton(
+                                                    style: TextButton.styleFrom(
+                                                      foregroundColor: Colors.black,
+                                                      padding:
+                                                          const EdgeInsets.all(8),
+                                                    ),
+                                                    onPressed: () {
+                                                      if (canPressOk) {
+                                                        canPressOk = false;
+                                                        firstButtonPressEvent!();
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      firstButtonName
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: AppColor()
+                                                              .primaryColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Visibility(
+                                                  visible:
+                                                      showOkButton ?? false,
+                                                  child: TextButton(
+                                                    style: TextButton.styleFrom(
+                                                      foregroundColor: Colors.black,
+                                                      padding:
+                                                          const EdgeInsets.all(8),
+                                                    ),
+                                                    onPressed: () {
+                                                      if (canPressOk) {
+                                                        canPressOk = false;
+                                                        Navigator.pop(context);
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      localeSD.getLocaleData[
+                                                          'okay'],
+                                                      style: TextStyle(
+                                                          color: AppColor()
+                                                              .primaryColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          });
+        },
+        transitionDuration: const Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {
+          return Container();
+        }).then((val) {
+      canPressOk = false;
+    });
+  }
+}
