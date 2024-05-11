@@ -15,7 +15,7 @@ DashboardController dashCont = Get.put(DashboardController());
 List notificationList = [];
 
 class FireBaseService {
-  connect(_context, setState) async {
+  connect() async {
     NotificationSettings settings = await _firebaseMessaging.requestPermission(
       alert: true,
       announcement: false,
@@ -43,7 +43,7 @@ class FireBaseService {
         print('Message also contained a : ${message.data.toString()}');
         print(
             'Message also contained a this: ${message.contentAvailable.toString()}');
-        showAlert(_context, setState, message);
+        showAlert( message);
       }
     });
 
@@ -56,7 +56,7 @@ class FireBaseService {
             'Message also contained a notification: ${message.notification!.title}');
         print(
             'Message also contained a notification: ${message.notification!.body}');
-        showAlert(_context, setState, message);
+        showAlert( message);
       }
 
       // FireBaseAlert().show(_context, 'Open '+message.notification!.title.toString(),
@@ -64,8 +64,9 @@ class FireBaseService {
       // showOkButton: true);
     });
 
-    FirebaseMessaging.onBackgroundMessage(
-        (message) => showAlert(_context, setState, message));
+    // FirebaseMessaging.onBackgroundMessage(
+    //     (message) => showAlert( message));
+    
   }
 
   getToken() async {
@@ -74,26 +75,27 @@ class FireBaseService {
   }
 }
 
-showAlert(_context, setState, message) async {
-  await dashMod.getEvents(_context, setState);
+showAlert(message) async {
+  await dashMod.getEvents(navigatorKey.currentContext);
 
   FireBaseAlert().show(
-      _context,
+      navigatorKey.currentContext,
       'Alert ' + message.notification!.title.toString(),
       message.notification!.body.toString(),
       message.notification!.android!.imageUrl,
       showOkButton: false,
       secondButtonName: localeSD.getLocaleData['watch_later'],
       secondButtonPressEvent: () async {
-        Navigator.pop(_context);
+        Get.back();
       },
       firstButtonName: localeSD.getLocaleData['watch_event'],
       firstButtonPressEvent: () async {
-        ProgressDialogue().show(_context, loadingText: 'Getting data');
+        ProgressDialogue()
+            .show(navigatorKey.currentContext, loadingText: 'Getting data');
         var dataMap = {};
 
         List newList = [];
-        var data = await dashMod.getEvents(_context, setState);
+        var data = await dashMod.getEvents(navigatorKey.currentContext);
         if (data['success'] == true) {
           newList = data['event'];
           for (int i = 0; i < newList.length; i++) {
@@ -108,14 +110,14 @@ showAlert(_context, setState, message) async {
           }
         }
 
-        ProgressDialogue().hide(_context);
+        ProgressDialogue().hide(navigatorKey.currentContext);
         if (dataMap.isNotEmpty) {
-          Navigator.pop(_context);
-          dataSheet(_context, setState, dataMap);
+          Get.back();
+          dataSheet(navigatorKey.currentContext, dataMap);
         } else {
-          Navigator.pop(_context);
+          Get.back();
           AlertDialogue()
-              .show(_context, 'Alert', 'No data found', showOkButton: true);
+              .show(navigatorKey.currentContext, 'Alert', 'No data found', showOkButton: true);
         }
       });
 }

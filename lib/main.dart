@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:radius/FirebaseService/fireBaseService.dart';
 import 'AppLocalization.dart';
 import 'AppManager/AppUtil.dart';
 import 'AppManager/MtTextTheme.dart';
@@ -15,6 +17,13 @@ import 'Pages/SelectLanguage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 ApplicationLocalizations localeSD = ApplicationLocalizations();
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  showAlert(message);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -25,6 +34,9 @@ void main() async {
           projectId: "radius-317708"));
   await GetStorage.init();
   await localeSD.load();
+  FireBaseService fireB = FireBaseService();
+  await fireB.connect();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp());
 }
 
@@ -34,6 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleBuilder(builder: (_) {
       return GetMaterialApp(
+        navigatorKey: navigatorKey,
         title: 'Radius',
         debugShowCheckedModeBanner: false,
         // darkTheme: ThemeData.dark(),

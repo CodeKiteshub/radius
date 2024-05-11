@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:pinput/pinput.dart';
@@ -15,20 +16,23 @@ import 'DashboardModal.dart';
 import '../../main.dart';
 
 DashboardModal modal = DashboardModal();
+TextEditingController phoneController = TextEditingController();
 
 class RegistrationDialogue {
   show(context) async {
     bool isRegisterPressed = false;
+    RxBool isLoading = false.obs;
     String verificationid = "";
+    String countryCode = "+30";
     TextEditingController pinController = TextEditingController();
     var canPressOk = true;
-    MobileNumber.listenPhonePermission((isPermissionGranted) async {
-      if (isPermissionGranted) {
-        await initMobileNumberState();
-      } else {}
-    });
+    // MobileNumber.listenPhonePermission((isPermissionGranted) async {
+    //   if (isPermissionGranted) {
+    //     await initMobileNumberState();
+    //   } else {}
+    // });
 
-    await initMobileNumberState();
+    // await initMobileNumberState();
     return showGeneralDialog(
         barrierColor: Colors.black.withOpacity(0.5),
         transitionBuilder: (context, a1, a2, widget) {
@@ -91,7 +95,7 @@ class RegistrationDialogue {
                                     ),
                                     Padding(
                                         padding: const EdgeInsets.fromLTRB(
-                                            20, 0, 20, 20),
+                                            20, 20, 20, 20),
                                         child: Column(
                                           children: [
                                             isRegisterPressed == true
@@ -110,75 +114,137 @@ class RegistrationDialogue {
                                                       )
                                                     ],
                                                   )
-                                                : fillCards(setState),
-                                            Visibility(
-                                                visible: selectedSim != '',
-                                                child: MyButton(
-                                                  title: isRegisterPressed ==
-                                                          true
-                                                      ? localeSD.getLocaleData[
-                                                          "submit"]
-                                                      : localeSD.getLocaleData[
-                                                          'register'],
-                                                  onPress: () async {
-                                                    if (isRegisterPressed ==
-                                                        false) {
-                                                      await FirebaseAuth
-                                                          .instance
-                                                          .verifyPhoneNumber(
-                                                        phoneNumber:
-                                                            selectedSim,
-                                                        verificationCompleted:
-                                                            (PhoneAuthCredential
-                                                                credential) {},
-                                                        verificationFailed:
-                                                            (FirebaseAuthException
-                                                                e) {
-                                                          if (e.code ==
-                                                              'invalid-phone-number') {
-                                                            log('The provided phone number is not valid.');
-                                                          }
-                                                          Get.snackbar(
-                                                              e.message!, "");
-                                                          // Handle other errors
+                                                : IntlPhoneField(
+                                                    controller: phoneController,
+                                                    initialCountryCode: "GR",
+                                                    disableLengthCheck: true,
+                                                    textAlign: TextAlign.start,
+                                                    textAlignVertical:
+                                                        TextAlignVertical.top,
+                                                    dropdownTextStyle:
+                                                        const TextStyle(
+                                                      color: Color(0xffC2C2C2),
+                                                    ),
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 14),
+                                                    decoration: InputDecoration(
+                                                        constraints:
+                                                            BoxConstraints(
+                                                                maxHeight: 60),
+                                                        filled: true,
+                                                        fillColor: Colors.white,
+                                                        isDense: false,
+                                                        border: OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5))),
+                                                    onCountryChanged: (value) {
+                                                      log(value.dialCode);
+                                                      setState(
+                                                        () {
+                                                          countryCode =
+                                                              "+${value.dialCode}";
                                                         },
-                                                        codeSent: (String
-                                                                verificationId,
-                                                            int? resendToken) {
-                                                          setState(() {
-                                                            verificationid =
-                                                                verificationid;
-                                                            isRegisterPressed =
-                                                                true;
-                                                          });
-                                                        },
-                                                        codeAutoRetrievalTimeout:
-                                                            (String
-                                                                verificationId) {},
                                                       );
-                                                    } else {
-                                                      PhoneAuthCredential
-                                                          credential =
-                                                          PhoneAuthProvider.credential(
-                                                              verificationId:
-                                                                  verificationid,
-                                                              smsCode:
-                                                                  pinController
-                                                                      .text);
+                                                    },
+                                                    // validator: (p0) {
+                                                    //   if (p0!.number.length >
+                                                    //       10) {
+                                                    //     return "Please enter valid number.";
+                                                    //   }
+                                                    // },
+                                                  ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Obx(() {
+                                              return isLoading.value == true
+                                                  ? const Center(
+                                                      child:
+                                                          CircularProgressIndicator())
+                                                  : MyButton(
+                                                      title: isRegisterPressed ==
+                                                              true
+                                                          ? localeSD
+                                                                  .getLocaleData[
+                                                              "submit"]
+                                                          : localeSD
+                                                                  .getLocaleData[
+                                                              'register'],
+                                                      onPress: () async {
+                                                        if (isRegisterPressed ==
+                                                            false) {
+                                                          isLoading.value =
+                                                              true;
+                                                          await FirebaseAuth
+                                                              .instance
+                                                              .verifyPhoneNumber(
+                                                            phoneNumber:
+                                                                countryCode +
+                                                                    phoneController
+                                                                        .text,
+                                                            verificationCompleted:
+                                                                (PhoneAuthCredential
+                                                                    credential) {},
+                                                            verificationFailed:
+                                                                (FirebaseAuthException
+                                                                    e) {
+                                                              if (e.code ==
+                                                                  'invalid-phone-number') {
+                                                                log('The provided phone number is not valid.');
+                                                              }
+                                                              Get.snackbar(
+                                                                  e.message!,
+                                                                  "");
+                                                              // Handle other errors
+                                                            },
+                                                            codeSent: (String
+                                                                    verificationId,
+                                                                int?
+                                                                    resendToken) {
+                                                              setState(() {
+                                                                verificationid =
+                                                                    verificationId;
+                                                                isRegisterPressed =
+                                                                    true;
+                                                              });
+                                                            },
+                                                            codeAutoRetrievalTimeout:
+                                                                (String
+                                                                    verificationId) {},
+                                                          );
+                                                          isLoading.value =
+                                                              false;
+                                                        } else {
+                                                          isLoading.value =
+                                                              true;
+                                                          PhoneAuthCredential
+                                                              credential =
+                                                              PhoneAuthProvider.credential(
+                                                                  verificationId:
+                                                                      verificationid,
+                                                                  smsCode:
+                                                                      pinController
+                                                                          .text);
 
-                                                      // Sign the user in (or link) with the credential
-                                                      await FirebaseAuth
-                                                          .instance
-                                                          .signInWithCredential(
-                                                              credential)
-                                                          .then((value) =>
-                                                              onPressedRegister(
-                                                                  context));
-                                                    }
+                                                          // Sign the user in (or link) with the credential
+                                                          await FirebaseAuth
+                                                              .instance
+                                                              .signInWithCredential(
+                                                                  credential)
+                                                              .then((value) =>
+                                                                  onPressedRegister(
+                                                                      context));
+                                                          isLoading.value =
+                                                              false;
+                                                        }
 
-                                                    //  onPressedRegister(context);
-                                                  },
-                                                ))
+                                                        //  onPressedRegister(context);
+                                                      },
+                                                    );
+                                            })
                                           ],
                                         )),
                                   ],
@@ -289,5 +355,5 @@ Widget fillCards(setState) {
 }
 
 onPressedRegister(context) async {
-  Map data = await modal.registerUserNumber(context, selectedSim);
+  Map data = await modal.registerUserNumber(context, phoneController.text);
 }

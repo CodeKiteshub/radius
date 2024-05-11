@@ -44,7 +44,7 @@ class DashboardModal {
     return data;
   }
 
-  getEvents(context, setState) async {
+  getEvents(context) async {
     // ProgressDialogue().show(context,
     //     loadingText: 'Getting Events nearby');
 
@@ -72,7 +72,7 @@ class DashboardModal {
           markerId: MarkerId(pos.toString()),
           position: pos,
           onTap: () {
-            dataSheet(context, setState, newList[i]);
+            dataSheet(context,newList[i]);
           },
           infoWindow: InfoWindow(
             title: newList[i]['category_name'],

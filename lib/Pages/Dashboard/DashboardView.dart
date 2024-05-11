@@ -75,13 +75,14 @@ class _DashboardState extends State<Dashboard> {
 
     super.initState();
 
-    get();
+    if (mounted) {
+      get();
+    }
   }
 
   get() async {
     // googlePlace = GooglePlace(secretMapKey);
-    await fireB.connect(context, setState);
-
+    await fireB.connect();
     if (user.getUserData.isEmpty) {
       await modal.showDisclaimerDialogue(context);
 
@@ -155,7 +156,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   getEvents() async {
-    var data = await modal.getEvents(context, setState);
+    var data = await modal.getEvents(context);
 
     if (data['success'] == true) {}
 
@@ -419,7 +420,8 @@ class _DashboardState extends State<Dashboard> {
                                     await GetStorage().erase();
                                     await FirebaseAuth.instance.signOut();
                                     ApplicationLocalizations
-                                        applicationLocalizations = Get.find();
+                                        applicationLocalizations =
+                                        Get.put(ApplicationLocalizations());
                                     applicationLocalizations
                                         .selectedLanguage.value = "";
                                     Navigator.pop(context);

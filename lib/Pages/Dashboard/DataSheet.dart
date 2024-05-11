@@ -10,7 +10,7 @@ String longText1 =
     'Feeling overwhelmed by the preparation process for NP boards? '
     'Do you need a little direction or guidance on how best to conquer the exam? You’re not alone!';
 
-dataSheet(context, setState, Map dataMap) {
+dataSheet(context, Map dataMap) {
   return showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
