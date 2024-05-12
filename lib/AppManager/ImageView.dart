@@ -7,8 +7,7 @@ class ImageView extends StatefulWidget {
   final String tag;
   final String file;
 
-  const ImageView({Key? key, required this.tag, required this.file})
-      : super(key: key);
+  const ImageView({super.key, required this.tag, required this.file});
 
   @override
   _ImageViewState createState() => _ImageViewState();
@@ -31,7 +30,7 @@ class _ImageViewState extends State<ImageView> {
                 ),
               )),
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
                   ),

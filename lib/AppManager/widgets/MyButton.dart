@@ -14,7 +14,7 @@ class MyButton extends StatefulWidget {
   final TextStyle? textStyle;
 
   const MyButton(
-      {Key? key,
+      {super.key,
       required this.title,
       this.onPress,
       this.color,
@@ -22,14 +22,14 @@ class MyButton extends StatefulWidget {
       this.textStyle,
       this.elevation,
       this.animate,
-      this.width})
-      : super(key: key);
+      this.width});
 
   @override
   _MyButtonState createState() => _MyButtonState();
 }
 
 class _MyButtonState extends State<MyButton> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,

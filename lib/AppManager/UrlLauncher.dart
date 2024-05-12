@@ -16,7 +16,7 @@ class UrlLauncher{
 
 
   launchCaller(String number) async {
-    String url = "tel:"+number;
+    String url = "tel:$number";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -28,7 +28,7 @@ class UrlLauncher{
 
   launchEmail(String email) async {
     var uri =
-        'mailto:'+email.toString()+'?subject=Support&body=Hello';
+        'mailto:$email?subject=Support&body=Hello';
     if (await canLaunch(uri)) {
       await launch(uri);
     } else {

@@ -48,7 +48,7 @@ class UserProfileModal {
     ProgressDialogue().hide(context);
     if (data['success'] == true) {
       UserData().addUserData(data);
-      print('hereeeeeeeeeeeeeee' + UserData().getUserData.toString());
+      print('hereeeeeeeeeeeeeee${UserData().getUserData}');
     } else {
       AlertDialogue()
           .show(context, localeSD.getLocaleData['alert'], data['message']);

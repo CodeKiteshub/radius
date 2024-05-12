@@ -176,7 +176,7 @@ class DashboardModal {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                             child: Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
@@ -186,7 +186,7 @@ class DashboardModal {
                                     Container(
                                         decoration: BoxDecoration(
                                             color: AppColor().primaryColor,
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius: const BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               topRight: Radius.circular(10),
                                             )),
@@ -235,7 +235,7 @@ class DashboardModal {
                                           ),
                                           TextButton(
                                             style: TextButton.styleFrom(
-                                                padding: EdgeInsets.all(0)),
+                                                padding: const EdgeInsets.all(0)),
                                             onPressed: () {
                                               setState(() {
                                                 agreed = !agreed;
@@ -255,7 +255,7 @@ class DashboardModal {
                                                             color:
                                                                 Colors.black),
                                                         borderRadius:
-                                                            BorderRadius.all(
+                                                            const BorderRadius.all(
                                                                 Radius.circular(
                                                                     5))),
                                                     child: Visibility(
@@ -316,7 +316,7 @@ class DashboardModal {
             );
           });
         },
-        transitionDuration: Duration(milliseconds: 200),
+        transitionDuration: const Duration(milliseconds: 200),
         barrierDismissible: true,
         barrierLabel: '',
         context: context,

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -130,7 +129,7 @@ class RegistrationDialogue {
                                                         fontSize: 14),
                                                     decoration: InputDecoration(
                                                         constraints:
-                                                            BoxConstraints(
+                                                            const BoxConstraints(
                                                                 maxHeight: 60),
                                                         filled: true,
                                                         fillColor: Colors.white,
@@ -156,7 +155,7 @@ class RegistrationDialogue {
                                                     //   }
                                                     // },
                                                   ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 20,
                                             ),
                                             Obx(() {

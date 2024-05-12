@@ -8,17 +8,17 @@ class MyButton2 extends StatefulWidget {
   final Function? onPress;
 
   const MyButton2(
-      {Key? key, required this.title, this.onPress, this.height, this.width})
-      : super(key: key);
+      {super.key, required this.title, this.onPress, this.height, this.width});
 
   @override
   _MyButton2State createState() => _MyButton2State();
 }
 
 class _MyButton2State extends State<MyButton2> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.width ?? null,
+      width: widget.width,
       height: widget.height ?? 50,
       child: TextButton(
           style: TextButton.styleFrom(
@@ -36,15 +36,15 @@ class _MyButton2State extends State<MyButton2> {
               Expanded(
                 child: Text(
                   widget.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_forward,
                 color: Colors.white,
               ),

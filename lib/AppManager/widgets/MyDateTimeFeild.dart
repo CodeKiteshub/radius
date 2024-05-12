@@ -1,6 +1,5 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../MtTextTheme.dart';
 import '../appColors.dart';
@@ -21,7 +20,7 @@ class MyDateTimeField extends StatefulWidget {
   final ValueChanged? onChanged;
 
   const MyDateTimeField(
-      {Key? key,
+      {super.key,
       this.hintText,
       this.controller,
       this.isPasswordField,
@@ -34,8 +33,7 @@ class MyDateTimeField extends StatefulWidget {
       this.keyboardType,
       this.decoration,
       this.onChanged,
-      this.maxLine})
-      : super(key: key);
+      this.maxLine});
 
   @override
   _MyDateTimeFieldState createState() => _MyDateTimeFieldState();
@@ -53,32 +51,33 @@ class _MyDateTimeFieldState extends State<MyDateTimeField> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
             color: AppColor().primaryColorLight,
             blurRadius: 10,
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
           ),
         ],
       ),
       child: Theme(
         data: ThemeData.light().copyWith(
-          colorScheme: ColorScheme.light().copyWith(
+          colorScheme: const ColorScheme.light().copyWith(
             primary: AppColor().primaryColor,
           ),
         ),
         child: DateTimePicker(
             // initialValue: '',
             enabled: widget.enabled ?? true,
-            controller: widget.controller ?? null,
+            controller: widget.controller,
             minLines: widget.maxLine,
             maxLines: widget.maxLine == null ? 1 : 100,
             obscureText: widget.isPasswordField == null ? false : obscure,
-            maxLength: widget.maxLength ?? null,
+            maxLength: widget.maxLength,
             textAlign: widget.textAlign ?? TextAlign.start,
             onChanged: widget.onChanged == null
                 ? null
@@ -89,7 +88,7 @@ class _MyDateTimeFieldState extends State<MyDateTimeField> {
             dateMask: 'yyyy-MM-dd',
             firstDate: DateTime(1980),
             lastDate: DateTime.now(),
-            icon: Icon(Icons.event),
+            icon: const Icon(Icons.event),
             dateLabelText: 'Date',
             timeLabelText: "Hour",
             selectableDayPredicate: (date) {
@@ -106,15 +105,15 @@ class _MyDateTimeFieldState extends State<MyDateTimeField> {
                   fillColor: Colors.white,
                   counterText: '',
                   //contentPadding: widget.isPasswordField==null? EdgeInsets.all(5):widget.isPasswordField? EdgeInsets.fromLTRB(5,5,5,5):EdgeInsets.all(5),
-                  contentPadding: EdgeInsets.all(15),
-                  hintText: widget.hintText ?? null,
+                  contentPadding: const EdgeInsets.all(15),
+                  hintText: widget.hintText,
                   hintStyle:
                       MyTextTheme().mediumBCN.copyWith(color: Colors.grey),
                   errorStyle: MyTextTheme().smallPCB,
-                  prefixIcon: widget.prefixIcon ?? null,
+                  prefixIcon: widget.prefixIcon,
                   suffixIcon: (widget.isPasswordField == null ||
                           widget.isPasswordField == false)
-                      ? widget.suffixIcon ?? null
+                      ? widget.suffixIcon
                       : IconButton(
                           splashRadius: 5,
                           icon: obscure
@@ -169,28 +168,28 @@ class _MyDateTimeFieldState extends State<MyDateTimeField> {
                   //     )
                   // ),
 
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(color: Colors.transparent, width: 1),
                   ),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(color: Colors.transparent, width: 1),
                   ),
-                  disabledBorder: OutlineInputBorder(
+                  disabledBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(color: Colors.transparent, width: 1),
                   ),
-                  errorBorder: OutlineInputBorder(
+                  errorBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(color: Colors.transparent, width: 1),
                   ),
-                  focusedErrorBorder: OutlineInputBorder(
+                  focusedErrorBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                     borderSide: BorderSide(color: Colors.transparent, width: 1),
                   ),
                 ),
-            validator: widget.validator ?? null),
+            validator: widget.validator),
       ),
     );
   }

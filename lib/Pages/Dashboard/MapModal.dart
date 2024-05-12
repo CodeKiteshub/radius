@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -10,7 +9,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../AppManager/ProgressDialogue.dart';
 import 'dart:ui' as ui;
-import 'package:http/http.dart' as http;
 
 import 'LocationModal.dart';
 
@@ -33,7 +31,7 @@ class MapModal {
 
       permission = await Geolocator.checkPermission();
       permission = await Geolocator.checkPermission();
-      print('HHHHHHHHHHHH' + permission.toString());
+      print('HHHHHHHHHHHH$permission');
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
 
@@ -68,18 +66,18 @@ class MapModal {
     );
   }
 
-  addressFromCoordinates(_currentLocation) async {
+  addressFromCoordinates(currentLocation) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        _currentLocation.latitude, _currentLocation.longitude);
+        currentLocation.latitude, currentLocation.longitude);
     var address = locationFromPlaceMarker(placemarks).toString();
     return address;
   }
 
   coordinatesFromAddress(address) async {
     List locations = await locationFromAddress(address.toString());
-    var _currentLocation =
+    var currentLocation =
         LatLng(locations[0].latitude, locations[0].longitude);
-    return _currentLocation;
+    return currentLocation;
   }
 
   customMarker(imageUrl) async {
@@ -87,7 +85,7 @@ class MapModal {
     //  final http.Response response = await http.get(Uri.parse('https://map.radius.gr/public/eventdata/ZE0YUQiiiA8xpYpqOh7UHvXOjXZ8eXYzVIdQOj49.gif'));
     //  return BitmapDescriptor.fromBytes(response.bodyBytes);
 
-    final int targetWidth = 100;
+    const int targetWidth = 100;
     final File markerImageFile = await DefaultCacheManager().getSingleFile(
         (imageUrl == '' || imageUrl == null)
             ? 'https://picsum.photos/200/300'
@@ -111,17 +109,7 @@ class MapModal {
 }
 
 locationFromPlaceMarker(placemarks) {
-  var newLocation = placemarks[0].name.toString() +
-      ', ' +
-      placemarks[2].street.toString() +
-      ', ' +
-      placemarks[1].subLocality.toString() +
-      ', ' +
-      placemarks[0].locality.toString() +
-      ', ' +
-      placemarks[0].administrativeArea.toString() +
-      ', ' +
-      placemarks[0].country.toString();
+  var newLocation = '${placemarks[0].name}, ${placemarks[2].street}, ${placemarks[1].subLocality}, ${placemarks[0].locality}, ${placemarks[0].administrativeArea}, ${placemarks[0].country}';
   return newLocation;
 }
 

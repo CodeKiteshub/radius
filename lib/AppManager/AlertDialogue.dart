@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../main.dart';
 import 'appColors.dart';
 
@@ -44,7 +42,7 @@ class AlertDialogue {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
                             child: Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
@@ -54,7 +52,7 @@ class AlertDialogue {
                                     Container(
                                         decoration: BoxDecoration(
                                             color: AppColor().primaryColor,
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius: const BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               topRight: Radius.circular(10),
                                             )),
@@ -68,13 +66,13 @@ class AlertDialogue {
                                                     : Icons.info_outline,
                                                 color: Colors.white,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 5,
                                               ),
                                               Expanded(
                                                 child: Text(
                                                   alert.toString(),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 15),
                                                 ),
@@ -92,7 +90,7 @@ class AlertDialogue {
                                             child: Text(
                                               msg.toString(),
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
@@ -114,7 +112,7 @@ class AlertDialogue {
                                                     style: TextButton.styleFrom(
                                                       foregroundColor: Colors.black,
                                                       padding:
-                                                          EdgeInsets.all(8),
+                                                          const EdgeInsets.all(8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -140,7 +138,7 @@ class AlertDialogue {
                                                     style: TextButton.styleFrom(
                                                       foregroundColor: Colors.black,
                                                       padding:
-                                                          EdgeInsets.all(8),
+                                                          const EdgeInsets.all(8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -166,7 +164,7 @@ class AlertDialogue {
                                                     style: TextButton.styleFrom(
                                                       foregroundColor: Colors.black,
                                                       padding:
-                                                          EdgeInsets.all(8),
+                                                          const EdgeInsets.all(8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -191,7 +189,7 @@ class AlertDialogue {
                                                     style: TextButton.styleFrom(
                                                       foregroundColor: Colors.black,
                                                       padding:
-                                                          EdgeInsets.all(8),
+                                                          const EdgeInsets.all(8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -228,7 +226,7 @@ class AlertDialogue {
             );
           });
         },
-        transitionDuration: Duration(milliseconds: 200),
+        transitionDuration: const Duration(milliseconds: 200),
         barrierDismissible: true,
         barrierLabel: '',
         context: context,

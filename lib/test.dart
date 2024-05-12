@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_number/mobile_number.dart';
 
 
 class MobileTest extends StatefulWidget {
+  const MobileTest({super.key});
+
   @override
   _MobileTestState createState() => _MobileTestState();
 }

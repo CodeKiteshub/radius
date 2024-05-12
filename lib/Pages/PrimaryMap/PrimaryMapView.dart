@@ -5,6 +5,8 @@ import '../../AppManager/MtTextTheme.dart';
 import '../../AppManager/appColors.dart';
 
 class PrimaryMapView extends StatefulWidget {
+  const PrimaryMapView({super.key});
+
   @override
   _PrimaryMapViewState createState() => _PrimaryMapViewState();
 }
@@ -206,12 +208,12 @@ class _PrimaryMapViewState extends State<PrimaryMapView> {
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
               backgroundColor: AppColor().primaryColor,
+              onPressed: onPressedAddAddress,
               child: const Icon(
                 Icons.add,
                 color: Colors.white,
                 size: 40,
               ),
-              onPressed: onPressedAddAddress,
             ),
           ),
         ),

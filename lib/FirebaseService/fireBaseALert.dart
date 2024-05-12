@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import '../AppManager/appColors.dart';
 import '../main.dart';
+import '../AppManager/appColors.dart';
+import 'package:flutter/material.dart';
 
 class FireBaseAlert {
   show(context, alert, msg, image,
@@ -22,10 +22,9 @@ class FireBaseAlert {
               scale: a1.value,
               child: Opacity(
                 opacity: a1.value,
-                child: WillPopScope(
-                  onWillPop: () {
-                    return Future.value(false);
-                  },
+                child: PopScope(
+                  canPop: false,
+                  onPopInvoked: (bool value) {},
                   child: Scaffold(
                     backgroundColor: Colors.transparent,
                     body: Container(
@@ -48,7 +47,8 @@ class FireBaseAlert {
                                     Container(
                                         decoration: BoxDecoration(
                                             color: AppColor().primaryColor,
-                                            borderRadius: const BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               topRight: Radius.circular(10),
                                             )),
@@ -124,9 +124,11 @@ class FireBaseAlert {
                                                       showCancelButton ?? false,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -149,9 +151,11 @@ class FireBaseAlert {
                                                       secondButtonName != null,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -175,9 +179,11 @@ class FireBaseAlert {
                                                       firstButtonName != null,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -201,9 +207,11 @@ class FireBaseAlert {
                                                       showOkButton ?? false,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -243,7 +251,7 @@ class FireBaseAlert {
         transitionDuration: const Duration(milliseconds: 200),
         barrierDismissible: true,
         barrierLabel: '',
-        context: context,
+        context: context!,
         pageBuilder: (context, animation1, animation2) {
           return Container();
         }).then((val) {

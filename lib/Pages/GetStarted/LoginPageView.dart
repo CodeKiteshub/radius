@@ -10,7 +10,7 @@ import '../../main.dart';
 import '../Dashboard/DashboardView.dart';
 
 class LoginPageView extends StatefulWidget {
-  const LoginPageView({Key? key}) : super(key: key);
+  const LoginPageView({super.key});
 
   @override
   _LoginPageViewState createState() => _LoginPageViewState();
@@ -28,7 +28,7 @@ class _LoginPageViewState extends State<LoginPageView> {
   }
 
   onPressedLogin() {
-    App().navigator(context, Dashboard());
+    App().navigator(context, const Dashboard());
   }
 
   onPressSelectBirthDate() {
@@ -44,8 +44,7 @@ class _LoginPageViewState extends State<LoginPageView> {
         //   cancelStyle: MyTextTheme().mediumWCB,
         // ),
          onChanged: (date) {
-      print('change $date in time zone ' +
-          date.timeZoneOffset.inHours.toString());
+      print('change $date in time zone ${date.timeZoneOffset.inHours}');
     }, onConfirm: (date) {
       print('confirm $date');
       selectedBirthDate = date.toString().split(' ')[0];
@@ -63,11 +62,11 @@ class _LoginPageViewState extends State<LoginPageView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -80,7 +79,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                           : localeSD.getLocaleData['signup_to_proceed'],
                       style: MyTextTheme().mediumSCN,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],
@@ -88,7 +87,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               ),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -142,27 +141,27 @@ class _LoginPageViewState extends State<LoginPageView> {
           localeSD.getLocaleData['email'],
           style: MyTextTheme().mediumPCB,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MyTextField(
           hintText: localeSD.getLocaleData['enter_your_email'],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
           localeSD.getLocaleData['password'],
           style: MyTextTheme().mediumPCB,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MyTextField(
           isPasswordField: true,
           hintText: localeSD.getLocaleData['enter_your_password'],
         ),
-        SizedBox(
+        const SizedBox(
           height: 60,
         ),
         MyButton(
@@ -170,7 +169,7 @@ class _LoginPageViewState extends State<LoginPageView> {
           title: localeSD.getLocaleData['login'],
           onPress: onPressedLogin,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         // forgetPasswordButton(),
@@ -187,33 +186,33 @@ class _LoginPageViewState extends State<LoginPageView> {
           localeSD.getLocaleData['name'],
           style: MyTextTheme().mediumPCB,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MyTextField(
           hintText: localeSD.getLocaleData['enter_your_name'],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
           localeSD.getLocaleData['surName'],
           style: MyTextTheme().mediumPCB,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MyTextField(
           hintText: localeSD.getLocaleData['enter_your_surName'],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
           localeSD.getLocaleData['phone_number'],
           style: MyTextTheme().mediumPCB,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MyTextField(
@@ -221,35 +220,35 @@ class _LoginPageViewState extends State<LoginPageView> {
           keyboardType: TextInputType.number,
           hintText: localeSD.getLocaleData['enter_your_phone_number'],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
           localeSD.getLocaleData['password'],
           style: MyTextTheme().mediumPCB,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MyTextField(
           isPasswordField: true,
           hintText: localeSD.getLocaleData['enter_your_password'],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
           localeSD.getLocaleData['confirm_password'],
           style: MyTextTheme().mediumPCB,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MyTextField(
           isPasswordField: true,
           hintText: localeSD.getLocaleData['confirm_your_password'],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(
@@ -260,13 +259,11 @@ class _LoginPageViewState extends State<LoginPageView> {
                   foregroundColor: AppColor().primaryColor,
                   textStyle: MyTextTheme().mediumPCB),
               onPressed: onPressSelectBirthDate,
-              child: Text(localeSD.getLocaleData['birth_date'].toString() +
-                  " " +
-                  selectedBirthDate),
+              child: Text("${localeSD.getLocaleData['birth_date']} $selectedBirthDate"),
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         MyButton(
@@ -274,7 +271,7 @@ class _LoginPageViewState extends State<LoginPageView> {
           title: localeSD.getLocaleData['signUp'],
           onPress: onPressedLogin,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],
@@ -292,7 +289,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               width: 100,
               decoration: BoxDecoration(
                   color: AppColor().grey,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
             ),
           ],
         ),

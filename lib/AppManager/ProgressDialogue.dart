@@ -63,7 +63,7 @@ showProgressDialogue(
                                   'assets/progressAnimation.json')),
                           Text(
                             loadingText ?? 'Default',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 15,
                             ),
@@ -145,7 +145,7 @@ showProgressDialogue2(
                                 color: Colors.transparent,
                                 child: Text(
                                   loadingText ?? 'Default Text',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),

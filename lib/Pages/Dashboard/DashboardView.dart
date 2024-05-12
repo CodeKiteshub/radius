@@ -1,32 +1,31 @@
-import 'dart:async';
 import 'dart:io';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:radius/AppLocalization.dart';
-import 'package:record/record.dart';
-import 'package:translator/translator.dart';
-import '../../AppManager/AlertDialogue.dart';
-import '../../AppManager/AppUtil.dart';
-import '../../AppManager/MtTextTheme.dart';
-import '../../AppManager/appColors.dart';
-import '../../AppManager/getImage.dart';
-import '../../AppManager/userData.dart';
-import '../../AppManager/widgets/MyButton.dart';
-import '../../AppManager/widgets/MyTextField.dart';
-import '../../FirebaseService/fireBaseService.dart';
+import 'dart:async';
+import 'MapModal.dart';
 import '../../main.dart';
+import 'package:get/get.dart';
+import 'RegistrationBox.dart';
 import '../CommonWidgets.dart';
-import '../UserProfile/UserProfileView.dart';
 import 'ChangeToMultipart.dart';
 import 'DashboardController.dart';
-import 'MapModal.dart';
-import 'RegistrationBox.dart';
+import 'package:record/record.dart';
+import 'package:flutter/material.dart';
+import '../../AppManager/AppUtil.dart';
+import '../../AppManager/getImage.dart';
+import '../../AppManager/userData.dart';
+import '../../AppManager/appColors.dart';
+import '../../AppManager/MtTextTheme.dart';
+import 'package:translator/translator.dart';
+import 'package:radius/AppLocalization.dart';
+import '../../AppManager/AlertDialogue.dart';
+import '../UserProfile/UserProfileView.dart';
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:get_storage/get_storage.dart';
+import '../../AppManager/widgets/MyButton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:path_provider/path_provider.dart';
+import '../../AppManager/widgets/MyTextField.dart';
+import '../../FirebaseService/fireBaseService.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -40,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
   GoogleTranslator translator = GoogleTranslator();
   bool canSubmit = true;
   DashboardController dashCont = Get.put(DashboardController());
-  TextEditingController _descriptionC = TextEditingController();
+  final TextEditingController _descriptionC = TextEditingController();
 
   bool clickedCentreFAB = false;
   int selectedCat = 0;
@@ -58,9 +57,9 @@ class _DashboardState extends State<Dashboard> {
   FireBaseService fireB = FireBaseService();
   MapModal mapMod = MapModal();
 
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
-  TextEditingController _searchC = TextEditingController();
+  final TextEditingController _searchC = TextEditingController();
 
   var startValidation = false;
   final _formKey = GlobalKey<FormState>();
@@ -74,15 +73,16 @@ class _DashboardState extends State<Dashboard> {
     _isRecording = false;
 
     super.initState();
-
-    if (mounted) {
-      get();
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        get();
+      }
+    });
   }
 
   get() async {
     // googlePlace = GooglePlace(secretMapKey);
-    await fireB.connect();
+    // await fireB.connect();
     if (user.getUserData.isEmpty) {
       await modal.showDisclaimerDialogue(context);
 
@@ -310,11 +310,13 @@ class _DashboardState extends State<Dashboard> {
         var sendImages;
         var audio;
 
-        if (selectedImage.isNotEmpty)
+        if (selectedImage.isNotEmpty) {
           sendImages = await ChangeToMultipart().multipleFiles(selectedImage);
+        }
 
-        if (audioPath != '')
+        if (audioPath != '') {
           audio = await ChangeToMultipart().singleFile(audioPath);
+        }
 
         await getCurrentLocation();
         var data = await modal.submitData(
@@ -613,16 +615,16 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget _buildRecordStopControl() {
-    late Icon icon;
-    late Color color;
+    // late Icon icon;
+    // late Color color;
 
-    if (_isRecording || _isPaused) {
-      icon = const Icon(Icons.stop, color: Colors.red, size: 30);
-      color = Colors.red.withOpacity(0.1);
-    } else {
-      final theme = Theme.of(context);
-      color = theme.primaryColor.withOpacity(0.1);
-    }
+    // if (_isRecording || _isPaused) {
+    //   icon = const Icon(Icons.stop, color: Colors.red, size: 30);
+    //   color = Colors.red.withOpacity(0.1);
+    // } else {
+    //   final theme = Theme.of(context);
+    //   color = theme.primaryColor.withOpacity(0.1);
+    // }
 
     return ClipOval(
       child: InkWell(
@@ -640,35 +642,35 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget _buildPauseResumeControl() {
-    if (!_isRecording && !_isPaused) {
-      return const SizedBox.shrink();
-    }
+  // Widget _buildPauseResumeControl() {
+  //   if (!_isRecording && !_isPaused) {
+  //     return const SizedBox.shrink();
+  //   }
 
-    late Icon icon;
-    late Color color;
+  //   late Icon icon;
+  //   late Color color;
 
-    if (!_isPaused) {
-      icon = const Icon(Icons.pause, color: Colors.red, size: 30);
-      color = Colors.red.withOpacity(0.1);
-    } else {
-      final theme = Theme.of(context);
-      icon = const Icon(Icons.play_arrow, color: Colors.red, size: 30);
-      color = theme.primaryColor.withOpacity(0.1);
-    }
+  //   if (!_isPaused) {
+  //     icon = const Icon(Icons.pause, color: Colors.red, size: 30);
+  //     color = Colors.red.withOpacity(0.1);
+  //   } else {
+  //     final theme = Theme.of(context);
+  //     icon = const Icon(Icons.play_arrow, color: Colors.red, size: 30);
+  //     color = theme.primaryColor.withOpacity(0.1);
+  //   }
 
-    return ClipOval(
-      child: Material(
-        color: color,
-        child: InkWell(
-          child: SizedBox(width: 56, height: 56, child: icon),
-          onTap: () {
-            _isPaused ? _resume() : _pause();
-          },
-        ),
-      ),
-    );
-  }
+  //   return ClipOval(
+  //     child: Material(
+  //       color: color,
+  //       child: InkWell(
+  //         child: SizedBox(width: 56, height: 56, child: icon),
+  //         onTap: () {
+  //           _isPaused ? _resume() : _pause();
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildText() {
     return _buildTimer();

@@ -1,13 +1,14 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import '../AppManager/AlertDialogue.dart';
-import '../AppManager/ProgressDialogue.dart';
 import '../main.dart';
+import 'dart:developer';
 import 'fireBaseALert.dart';
-import '../Pages/Dashboard/DashboardController.dart';
-import '../Pages/Dashboard/DashboardModal.dart';
-import '../Pages/Dashboard/DataSheet.dart';
 import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
+import '../AppManager/AlertDialogue.dart';
+import '../Pages/Dashboard/DataSheet.dart';
+import '../AppManager/ProgressDialogue.dart';
+import '../Pages/Dashboard/DashboardModal.dart';
+import '../Pages/Dashboard/DashboardController.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 DashboardModal dashMod = DashboardModal();
@@ -27,7 +28,7 @@ class FireBaseService {
     );
     print('User granted permission: ${settings.authorizationStatus}');
     var data = await _firebaseMessaging.getToken();
-    print('User Token: ' + data.toString());
+    print('User Token: $data');
     // await FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
@@ -43,7 +44,7 @@ class FireBaseService {
         print('Message also contained a : ${message.data.toString()}');
         print(
             'Message also contained a this: ${message.contentAvailable.toString()}');
-        showAlert( message);
+        showAlert(message);
       }
     });
 
@@ -56,7 +57,7 @@ class FireBaseService {
             'Message also contained a notification: ${message.notification!.title}');
         print(
             'Message also contained a notification: ${message.notification!.body}');
-        showAlert( message);
+        showAlert(message);
       }
 
       // FireBaseAlert().show(_context, 'Open '+message.notification!.title.toString(),
@@ -66,11 +67,11 @@ class FireBaseService {
 
     // FirebaseMessaging.onBackgroundMessage(
     //     (message) => showAlert( message));
-    
   }
 
   getToken() async {
     var data = await _firebaseMessaging.getToken();
+    log("token : $data");
     return data;
   }
 }
@@ -80,7 +81,7 @@ showAlert(message) async {
 
   FireBaseAlert().show(
       navigatorKey.currentContext,
-      'Alert ' + message.notification!.title.toString(),
+      'Alert ${message.notification!.title}',
       message.notification!.body.toString(),
       message.notification!.android!.imageUrl,
       showOkButton: false,
@@ -99,12 +100,16 @@ showAlert(message) async {
         if (data['success'] == true) {
           newList = data['event'];
           for (int i = 0; i < newList.length; i++) {
-            print('hereeeeeeeeeeIsNow' + message.data['eventid'].toString());
-            print('hereeeeeeeeeeIsNow' + newList[i]['id'].toString());
+            if (kDebugMode) {
+              print('hereeeeeeeeeeIsNow${message.data['eventid']}');
+              print('hereeeeeeeeeeIsNow${newList[i]['id']}');
+            }
             if (message.data['eventid'].toString() ==
                 newList[i]['id'].toString()) {
-              print(
-                  'ttttttttttttttttttttttttttttttttttttYessssssssssssssssssss');
+              if (kDebugMode) {
+                print(
+                    'ttttttttttttttttttttttttttttttttttttYessssssssssssssssssss');
+              }
               dataMap = newList[i];
             }
           }
@@ -116,8 +121,9 @@ showAlert(message) async {
           dataSheet(navigatorKey.currentContext, dataMap);
         } else {
           Get.back();
-          AlertDialogue()
-              .show(navigatorKey.currentContext, 'Alert', 'No data found', showOkButton: true);
+          AlertDialogue().show(
+              navigatorKey.currentContext, 'Alert', 'No data found',
+              showOkButton: true);
         }
       });
 }

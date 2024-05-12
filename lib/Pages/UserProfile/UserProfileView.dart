@@ -11,7 +11,7 @@ import '../../main.dart';
 import 'UerProfileModal.dart';
 
 class UserProfileView extends StatefulWidget {
-  const UserProfileView({Key? key}) : super(key: key);
+  const UserProfileView({super.key});
 
   @override
   _UserProfileViewState createState() => _UserProfileViewState();
@@ -21,16 +21,16 @@ class _UserProfileViewState extends State<UserProfileView> {
   UserProfileModal modal = UserProfileModal();
   UserData user = UserData();
 
-  TextEditingController _fNameC = TextEditingController(
+  final TextEditingController _fNameC = TextEditingController(
     text: UserData().getFirstName,
   );
-  TextEditingController _lNameC = TextEditingController(
+  final TextEditingController _lNameC = TextEditingController(
     text: UserData().getLastName,
   );
-  TextEditingController _emailC = TextEditingController(
+  final TextEditingController _emailC = TextEditingController(
     text: UserData().getUserEmail,
   );
-  TextEditingController _dobC = TextEditingController(
+  final TextEditingController _dobC = TextEditingController(
     text: UserData().getDOB,
   );
 
@@ -72,73 +72,73 @@ class _UserProfileViewState extends State<UserProfileView> {
                         localeSD.getLocaleData['account'],
                         style: MyTextTheme().largePCB,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         localeSD.getLocaleData['update_your_account'],
                         style: MyTextTheme().mediumPCB,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         localeSD.getLocaleData['first_name'],
                         style: MyTextTheme().mediumBCB,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       MyTextField(
                         controller: _fNameC,
                         hintText: localeSD.getLocaleData['enter_first_name'],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         localeSD.getLocaleData['last_name'],
                         style: MyTextTheme().mediumBCB,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       MyTextField(
                         controller: _lNameC,
                         hintText: localeSD.getLocaleData['enter_last_name'],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         localeSD.getLocaleData['email'],
                         style: MyTextTheme().mediumBCB,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       MyTextField(
                         controller: _emailC,
                         hintText: localeSD.getLocaleData['enter_email'],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         localeSD.getLocaleData['dob'],
                         style: MyTextTheme().mediumBCB,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       MyDateTimeField(
                         controller: _dobC,
                         hintText: localeSD.getLocaleData['enter_dob'],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       MyButton(
@@ -146,7 +146,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                         title: localeSD.getLocaleData['update'],
                         onPress: onPressedUpdate,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                     ],
@@ -162,15 +162,15 @@ class _UserProfileViewState extends State<UserProfileView> {
 
   editProfileButton() {
     return PopupMenuButton(
-      offset: Offset(0.5, 40),
+      offset: const Offset(0.5, 40),
       color: Colors.white,
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: CircleAvatar(
           radius: 12,
           backgroundColor: AppColor().primaryColor,
-          child: Icon(
+          child: const Icon(
             Icons.camera_alt,
             color: Colors.white,
             size: 15,
@@ -197,7 +197,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                 size: 18,
                 color: AppColor().primaryColor,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Text(
@@ -220,7 +220,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                 size: 18,
                 color: AppColor().primaryColor,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Text(

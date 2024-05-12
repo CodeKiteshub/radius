@@ -42,7 +42,7 @@ class MyAudioPlayer {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                           child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
@@ -52,7 +52,7 @@ class MyAudioPlayer {
                                   Container(
                                       decoration: BoxDecoration(
                                           color: AppColor().primaryColor,
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             topRight: Radius.circular(10),
                                           )),
@@ -61,7 +61,7 @@ class MyAudioPlayer {
                                             8, 0, 8, 0),
                                         child: Row(
                                           children: [
-                                            Expanded(
+                                            const Expanded(
                                               child: Text(
                                                 'Audio Player',
                                                 style: TextStyle(
@@ -71,7 +71,7 @@ class MyAudioPlayer {
                                             ),
                                             IconButton(
                                                 splashRadius: 5,
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.clear,
                                                   color: Colors.white,
                                                   size: 20,
@@ -125,7 +125,7 @@ class MyAudioPlayer {
             );
           });
         },
-        transitionDuration: Duration(milliseconds: 200),
+        transitionDuration: const Duration(milliseconds: 200),
         barrierDismissible: true,
         barrierLabel: '',
         context: context,
@@ -140,7 +140,7 @@ class MyAudioPlayer {
 class ControlButtons extends StatelessWidget {
   final AudioPlayer player;
 
-  ControlButtons(this.player);
+  const ControlButtons(this.player, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class ControlButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          icon: Icon(Icons.volume_up),
+          icon: const Icon(Icons.volume_up),
           onPressed: () {
             _showSliderDialog(
               context: context,
@@ -177,26 +177,26 @@ class ControlButtons extends StatelessWidget {
             if (processingState == ProcessingState.loading ||
                 processingState == ProcessingState.buffering) {
               return Container(
-                margin: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(8.0),
                 width: 30.0,
                 height: 30.0,
-                child: CircularProgressIndicator(),
+                child: const CircularProgressIndicator(),
               );
             } else if (playing != true) {
               return IconButton(
-                icon: Icon(Icons.play_arrow),
+                icon: const Icon(Icons.play_arrow),
                 iconSize: 30.0,
                 onPressed: player.play,
               );
             } else if (processingState != ProcessingState.completed) {
               return IconButton(
-                icon: Icon(Icons.pause),
+                icon: const Icon(Icons.pause),
                 iconSize: 30.0,
                 onPressed: player.pause,
               );
             } else {
               return IconButton(
-                icon: Icon(Icons.replay),
+                icon: const Icon(Icons.replay),
                 iconSize: 30.0,
                 onPressed: () => player.seek(Duration.zero,
                     index: player.effectiveIndices!.first),
@@ -215,7 +215,7 @@ class ControlButtons extends StatelessWidget {
           stream: player.speedStream,
           builder: (context, snapshot) => IconButton(
             icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               _showSliderDialog(
                 context: context,
@@ -241,7 +241,7 @@ class SeekBar extends StatefulWidget {
   final ValueChanged<Duration>? onChanged;
   final ValueChanged<Duration>? onChangeEnd;
 
-  SeekBar({
+  const SeekBar({super.key, 
     required this.duration,
     required this.position,
     required this.bufferedPosition,
@@ -331,7 +331,7 @@ class _SeekBarState extends State<SeekBar> {
                       .firstMatch("$_remaining")
                       ?.group(1) ??
                   '$_remaining',
-              style: Theme.of(context).textTheme.caption),
+              style: Theme.of(context).textTheme.bodySmall),
         ),
       ],
     );
@@ -356,12 +356,12 @@ void _showSliderDialog({
       title: Text(title, textAlign: TextAlign.center),
       content: StreamBuilder<double>(
         stream: stream,
-        builder: (context, snapshot) => Container(
+        builder: (context, snapshot) => SizedBox(
           height: 100.0,
           child: Column(
             children: [
               Text('${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: 'Fixed',
                       fontWeight: FontWeight.bold,
                       fontSize: 24.0)),

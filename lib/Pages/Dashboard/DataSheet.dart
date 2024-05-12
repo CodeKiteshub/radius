@@ -35,7 +35,7 @@ dataSheet(context, Map dataMap) {
                         child: Container(
                           height: 200,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20),
                               ),
@@ -59,7 +59,7 @@ dataSheet(context, Map dataMap) {
                                   textAlign: TextAlign.center,
                                   style: MyTextTheme().smallPCB,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 CircleAvatar(
@@ -87,7 +87,7 @@ dataSheet(context, Map dataMap) {
                                     textAlign: TextAlign.center,
                                     style: MyTextTheme().smallPCB,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                 ],
@@ -105,17 +105,16 @@ dataSheet(context, Map dataMap) {
                                               App().navigator(
                                                   context,
                                                   ImageView(
-                                                      tag: 'tag' +
-                                                          (index.toString()),
+                                                      tag: 'tag$index',
                                                       file: dataMap['image']
                                                           [index]));
                                             },
                                             child: Hero(
-                                              tag: 'tag' + (index.toString()),
+                                              tag: 'tag$index',
                                               child: Container(
                                                 height: 60,
                                                 width: 80,
-                                                decoration: new BoxDecoration(
+                                                decoration: BoxDecoration(
                                                     color: AppColor()
                                                         .primaryColorLight,
                                                     boxShadow: [
@@ -126,9 +125,9 @@ dataSheet(context, Map dataMap) {
                                                           spreadRadius: 2)
                                                     ],
                                                     borderRadius:
-                                                        BorderRadius.all(
+                                                        const BorderRadius.all(
                                                             Radius.circular(5)),
-                                                    image: new DecorationImage(
+                                                    image: DecorationImage(
                                                       image: NetworkImage(
                                                         dataMap['image'][index],
                                                       ),
@@ -140,7 +139,7 @@ dataSheet(context, Map dataMap) {
                                         )),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Visibility(
@@ -165,7 +164,7 @@ dataSheet(context, Map dataMap) {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                           ],

@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ApplicationLocalizations extends GetxController {

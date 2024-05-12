@@ -5,7 +5,7 @@ class DashboardController extends GetxController {
   List categoryList = [].obs;
   List allEvents = [].obs;
   Set<Marker> eventsMarkers = <Marker>{}.obs;
-  Rx<LatLng> currentLocation = LatLng(39.0742, 21.8243).obs;
+  Rx<LatLng> currentLocation = const LatLng(39.0742, 21.8243).obs;
 
   List get getCategoryList => categoryList;
   List get getAllEvents => allEvents;

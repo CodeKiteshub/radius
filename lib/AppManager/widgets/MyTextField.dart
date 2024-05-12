@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../MtTextTheme.dart';
 import '../appColors.dart';
 
@@ -19,7 +18,7 @@ class MyTextField extends StatefulWidget {
   final ValueChanged? onChanged;
 
   const MyTextField(
-      {Key? key,
+      {super.key,
       this.hintText,
       this.controller,
       this.isPasswordField,
@@ -32,8 +31,7 @@ class MyTextField extends StatefulWidget {
       this.keyboardType,
       this.decoration,
       this.onChanged,
-      this.maxLine})
-      : super(key: key);
+      this.maxLine});
 
   @override
   _MyTextFieldState createState() => _MyTextFieldState();
@@ -51,15 +49,16 @@ class _MyTextFieldState extends State<MyTextField> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
             color: AppColor().primaryColorLight,
             blurRadius: 10,
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -69,9 +68,9 @@ class _MyTextFieldState extends State<MyTextField> {
           minLines: widget.maxLine,
           maxLines: widget.maxLine == null ? 1 : 100,
           obscureText: widget.isPasswordField == null ? false : obscure,
-          maxLength: widget.maxLength ?? null,
+          maxLength: widget.maxLength,
           textAlign: widget.textAlign ?? TextAlign.start,
-          keyboardType: widget.keyboardType ?? null,
+          keyboardType: widget.keyboardType,
           onChanged: widget.onChanged == null
               ? null
               : (val) {
@@ -85,17 +84,17 @@ class _MyTextFieldState extends State<MyTextField> {
                 fillColor: Colors.white,
                 counterText: '',
                 //contentPadding: widget.isPasswordField==null? EdgeInsets.all(5):widget.isPasswordField? EdgeInsets.fromLTRB(5,5,5,5):EdgeInsets.all(5),
-                contentPadding: EdgeInsets.all(15),
-                hintText: widget.hintText ?? null,
+                contentPadding: const EdgeInsets.all(15),
+                hintText: widget.hintText,
                 hintStyle: TextStyle(
                     fontSize: 12, color: AppColor().primaryColorLight),
-                errorStyle: TextStyle(
+                errorStyle: const TextStyle(
                   fontSize: 12,
                 ),
-                prefixIcon: widget.prefixIcon ?? null,
+                prefixIcon: widget.prefixIcon,
                 suffixIcon: (widget.isPasswordField == null ||
                         widget.isPasswordField == false)
-                    ? widget.suffixIcon ?? null
+                    ? widget.suffixIcon
                     : IconButton(
                         splashRadius: 5,
                         icon: obscure
@@ -150,28 +149,28 @@ class _MyTextFieldState extends State<MyTextField> {
                 //     )
                 // ),
 
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   borderSide: BorderSide(color: Colors.transparent, width: 1),
                 ),
-                enabledBorder: OutlineInputBorder(
+                enabledBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   borderSide: BorderSide(color: Colors.transparent, width: 1),
                 ),
-                disabledBorder: OutlineInputBorder(
+                disabledBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   borderSide: BorderSide(color: Colors.transparent, width: 1),
                 ),
-                errorBorder: OutlineInputBorder(
+                errorBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   borderSide: BorderSide(color: Colors.transparent, width: 1),
                 ),
-                focusedErrorBorder: OutlineInputBorder(
+                focusedErrorBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                   borderSide: BorderSide(color: Colors.transparent, width: 1),
                 ),
               ),
-          validator: widget.validator ?? null),
+          validator: widget.validator),
     );
   }
 }

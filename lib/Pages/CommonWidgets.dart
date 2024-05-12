@@ -9,10 +9,10 @@ class CommonWidgets {
     return TextButton(
       style: TextButton.styleFrom(
           foregroundColor: Colors.black,
-          padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
-          minimumSize: Size(0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+          minimumSize: const Size(0, 0),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-      child: Icon(Icons.arrow_back),
+      child: const Icon(Icons.arrow_back),
       onPressed: () {
         Navigator.pop(context);
       },
@@ -22,7 +22,7 @@ class CommonWidgets {
   appLogo({double? size}) {
     return SizedBox(
         height: size ?? 120,
-        child: Image(
+        child: const Image(
           image: AssetImage('assets/logoRadius.png'),
         ));
   }
@@ -34,7 +34,7 @@ class CommonWidgets {
   //   );
   // }
   appTitle() {
-    return Container(
+    return SizedBox(
       height: 40,
       width: 60,
       child: Image.asset(
@@ -47,15 +47,15 @@ class CommonWidgets {
     return Container(
       height: 100,
       width: 120,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
           color: AppColor().primaryColorLight,
           boxShadow: [
             BoxShadow(
                 blurRadius: 5, color: AppColor().primaryColor, spreadRadius: 2)
           ],
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          image: new DecorationImage(
-            image: new FileImage(File(path)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          image: DecorationImage(
+            image: FileImage(File(path)),
             fit: BoxFit.cover,
           )),
     );

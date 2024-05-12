@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -13,7 +11,7 @@ import '../../main.dart';
 import '../Dashboard/DashboardView.dart';
 
 class GetStartedView extends StatefulWidget {
-  const GetStartedView({Key? key}) : super(key: key);
+  const GetStartedView({super.key});
 
   @override
   _GetStartedViewState createState() => _GetStartedViewState();
@@ -80,7 +78,7 @@ class _GetStartedViewState extends State<GetStartedView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _list = <Widget>[
+    List<Widget> list = <Widget>[
       mainWidget(boardList[0]),
       mainWidget(boardList[1]),
       mainWidget(boardList[2]),
@@ -90,16 +88,16 @@ class _GetStartedViewState extends State<GetStartedView> {
         body: Container(
           decoration: BoxDecoration(color: AppColor().primaryColorLight),
           child: PageView(
-            children: _list,
             scrollDirection: Axis.horizontal,
             pageSnapping: true,
             physics: const BouncingScrollPhysics(),
             controller: controller,
             onPageChanged: (num) {
-              print("Current page number is " + num.toString());
+              print("Current page number is $num");
               _curr = num;
               setState(() {});
             },
+            children: list,
           ),
         ),
       ),

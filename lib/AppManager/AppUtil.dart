@@ -75,7 +75,7 @@ class App {
         return cancelResponse;
       }
     } on TimeoutException catch (e) {
-      print('Time Out ' + e.toString());
+      print('Time Out $e');
       var retry = await apiDialogue(
         context,
         'Alert  !!!',
@@ -137,7 +137,7 @@ class App {
         return cancelResponse;
       }
     } on TimeoutException catch (e) {
-      print('Time Out ' + e.toString());
+      print('Time Out $e');
       var retry = await apiDialogue(
         context,
         'Alert  !!!',
@@ -203,7 +203,7 @@ class App {
         return cancelResponse;
       }
     } on TimeoutException catch (e) {
-      print('Time Out ' + e.toString());
+      print('Time Out $e');
       var retry = await apiDialogue(
         context,
         'Alert  !!!',
@@ -247,7 +247,7 @@ class RawData {
               baseUrl + url,
               data: formData,
             );
-      print('hereeeee' + response.toString());
+      print('hereeeee$response');
       var data = await jsonDecode(response.toString());
       print(data);
       if (data is List) {
@@ -269,7 +269,7 @@ class RawData {
         return cancelResponse;
       }
     } on TimeoutException catch (e) {
-      print('Time Out ' + e.toString());
+      print('Time Out $e');
       var retry = await apiDialogue(
         context,
         'Alert  !!!',

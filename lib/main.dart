@@ -1,20 +1,20 @@
 import 'dart:async';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:radius/FirebaseService/fireBaseService.dart';
 import 'AppLocalization.dart';
-import 'AppManager/AppUtil.dart';
-import 'AppManager/MtTextTheme.dart';
-import 'AppManager/appColors.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:get/get.dart';
+import 'AppManager/AppUtil.dart';
 import 'AppManager/userData.dart';
 import 'Pages/CommonWidgets.dart';
-import 'Pages/Dashboard/DashboardView.dart';
+import 'AppManager/appColors.dart';
 import 'Pages/SelectLanguage.dart';
+import 'AppManager/MtTextTheme.dart';
+import 'package:flutter/material.dart';
+import 'Pages/Dashboard/DashboardView.dart';
+import 'package:radius/firebase_options.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:radius/FirebaseService/fireBaseService.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 ApplicationLocalizations localeSD = ApplicationLocalizations();
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -26,21 +26,18 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyBd5nyrr5M0OuqRB7HT0_8HaTzRcQPaEBk",
-          appId: "1:53272068266:android:51ec72ea80b787750210d3",
-          messagingSenderId: "53272068266",
-          projectId: "radius-317708"));
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
   await localeSD.load();
   FireBaseService fireB = FireBaseService();
   await fireB.connect();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -52,13 +49,15 @@ class MyApp extends StatelessWidget {
         // darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.light,
 
-        home: MyHomePage(),
+        home: const MyHomePage(),
       );
     });
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.

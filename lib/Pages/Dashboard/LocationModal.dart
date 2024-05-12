@@ -6,7 +6,7 @@ import 'package:location/location.dart';
 
 class LocationModal{
 
-  Location location = new Location();
+  Location location = Location();
 
   late bool _serviceEnabled;
   late PermissionStatus _permissionGranted;
@@ -17,7 +17,7 @@ class LocationModal{
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
-      print('thissssssssssssssss'+_serviceEnabled.toString());
+      print('thissssssssssssssss$_serviceEnabled');
       send=false;
     }
     else{

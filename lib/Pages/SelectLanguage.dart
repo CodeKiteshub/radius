@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:radius/Pages/Dashboard/DashboardController.dart';
 
 import '../AppLocalization.dart';
 import '../AppManager/AppUtil.dart';
