@@ -52,7 +52,8 @@ class AlertDialogue {
                                     Container(
                                         decoration: BoxDecoration(
                                             color: AppColor().primaryColor,
-                                            borderRadius: const BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               topRight: Radius.circular(10),
                                             )),
@@ -110,9 +111,11 @@ class AlertDialogue {
                                                       showCancelButton ?? false,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -122,7 +125,8 @@ class AlertDialogue {
                                                     },
                                                     child: Text(
                                                       localeSD.getLocaleData[
-                                                          'cancel'],
+                                                              'cancel'] ??
+                                                          "Cancel",
                                                       style: TextStyle(
                                                           color: AppColor()
                                                               .primaryColor,
@@ -136,9 +140,11 @@ class AlertDialogue {
                                                       secondButtonName != null,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -162,9 +168,11 @@ class AlertDialogue {
                                                       firstButtonName != null,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -187,9 +195,11 @@ class AlertDialogue {
                                                   visible: showOkButton ?? true,
                                                   child: TextButton(
                                                     style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black,
+                                                      foregroundColor:
+                                                          Colors.black,
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     ),
                                                     onPressed: () {
                                                       if (canPressOk) {
@@ -199,7 +209,8 @@ class AlertDialogue {
                                                     },
                                                     child: Text(
                                                       localeSD.getLocaleData[
-                                                          'okay'],
+                                                              'okay'] ??
+                                                          "Okay",
                                                       style: TextStyle(
                                                           color: AppColor()
                                                               .primaryColor,

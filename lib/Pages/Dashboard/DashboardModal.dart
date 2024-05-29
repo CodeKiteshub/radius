@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:radius/AppLocalization.dart';
 import '../../AppManager/AlertDialogue.dart';
 import '../../AppManager/AppUtil.dart';
 import '../../AppManager/MtTextTheme.dart';
@@ -8,6 +13,7 @@ import '../../AppManager/UrlLauncher.dart';
 import '../../AppManager/appColors.dart';
 import '../../AppManager/userData.dart';
 import '../../FirebaseService/fireBaseService.dart';
+import '../SelectLanguage.dart';
 import 'DashboardController.dart';
 import 'package:get/get.dart';
 import 'DataSheet.dart';
@@ -38,6 +44,13 @@ class DashboardModal {
     if (data['success'] == true) {
       UserData().addUserData(data);
       // print('hereeeeeeeeeeeeeee'+UserData().getUserData.toString());
+    } else if (data["message"] == "You cannot access this page") {
+      await GetStorage().erase();
+      await FirebaseAuth.instance.signOut();
+      ApplicationLocalizations applicationLocalizations =
+          Get.put(ApplicationLocalizations());
+      applicationLocalizations.selectedLanguage.value = "";
+      Get.offAll(const SelectLanguage());
     } else {
       AlertDialogue().show(context, 'Alert', data['message']);
     }
@@ -72,7 +85,7 @@ class DashboardModal {
           markerId: MarkerId(pos.toString()),
           position: pos,
           onTap: () {
-            dataSheet(context,newList[i]);
+            dataSheet(context, newList[i]);
           },
           infoWindow: InfoWindow(
             title: newList[i]['category_name'],
@@ -186,7 +199,8 @@ class DashboardModal {
                                     Container(
                                         decoration: BoxDecoration(
                                             color: AppColor().primaryColor,
-                                            borderRadius: const BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               topRight: Radius.circular(10),
                                             )),
@@ -235,7 +249,8 @@ class DashboardModal {
                                           ),
                                           TextButton(
                                             style: TextButton.styleFrom(
-                                                padding: const EdgeInsets.all(0)),
+                                                padding:
+                                                    const EdgeInsets.all(0)),
                                             onPressed: () {
                                               setState(() {
                                                 agreed = !agreed;
@@ -255,7 +270,8 @@ class DashboardModal {
                                                             color:
                                                                 Colors.black),
                                                         borderRadius:
-                                                            const BorderRadius.all(
+                                                            const BorderRadius
+                                                                .all(
                                                                 Radius.circular(
                                                                     5))),
                                                     child: Visibility(
@@ -281,7 +297,8 @@ class DashboardModal {
                                                 ),
                                                 TextButton(
                                                   style: TextButton.styleFrom(
-                                                      foregroundColor: Colors.black),
+                                                      foregroundColor:
+                                                          Colors.black),
                                                   onPressed: () async {
                                                     if (agreed) {
                                                       // await storedData.updateIsAgreed(true);

@@ -1,5 +1,7 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
+import 'package:radius/Pages/SelectLanguage.dart';
+
 import 'MapModal.dart';
 import '../../main.dart';
 import 'package:get/get.dart';
@@ -426,10 +428,7 @@ class _DashboardState extends State<Dashboard> {
                                         Get.put(ApplicationLocalizations());
                                     applicationLocalizations
                                         .selectedLanguage.value = "";
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
+                                    Get.offAll(const SelectLanguage());
                                   },
                                   onCancel: () => Navigator.pop(context),
                                 );
@@ -475,6 +474,11 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           Text(
                             user.getDOB.toString(),
+                            textAlign: TextAlign.center,
+                            style: MyTextTheme().mediumPCN,
+                          ),
+                          Text(
+                            "v22.0.8",
                             textAlign: TextAlign.center,
                             style: MyTextTheme().mediumPCN,
                           ),

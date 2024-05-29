@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:radius/Pages/Dashboard/DashboardModal.dart';
+
 import 'AppLocalization.dart';
 import 'package:get/get.dart';
 import 'AppManager/AppUtil.dart';
@@ -32,6 +34,12 @@ void main() async {
   FireBaseService fireB = FireBaseService();
   await fireB.connect();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  UserData user = UserData();
+  if (user.getUserToken.isNotEmpty) {
+    DashboardModal modal = DashboardModal();
+    modal.updateLatLang(navigatorKey.currentContext);
+  }
+
   runApp(const MyApp());
 }
 
