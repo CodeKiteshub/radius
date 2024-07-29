@@ -478,7 +478,7 @@ class _DashboardState extends State<Dashboard> {
                             style: MyTextTheme().mediumPCN,
                           ),
                           Text(
-                            "v22.0.8",
+                            "v22.0.9",
                             textAlign: TextAlign.center,
                             style: MyTextTheme().mediumPCN,
                           ),
