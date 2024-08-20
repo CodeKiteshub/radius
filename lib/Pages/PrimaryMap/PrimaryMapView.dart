@@ -153,7 +153,7 @@ class _PrimaryMapViewState extends State<PrimaryMapView> {
   //
 
   MapController mapController = MapController(
-    initMapWithUserPosition: false,
+    initMapWithUserPosition: const UserTrackingOption(),
     initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
   );
 
@@ -172,17 +172,12 @@ class _PrimaryMapViewState extends State<PrimaryMapView> {
                   children: [
                     OSMFlutter(
                       controller: mapController,
-                      roadConfiguration: RoadConfiguration(
-                        startIcon: const MarkerIcon(
-                          icon: Icon(
-                            Icons.person,
-                            size: 64,
-                            color: Colors.brown,
-                          ),
-                        ),
+                      osmOption: OSMOption(
+                         roadConfiguration: const RoadOption(
+                       
                         roadColor: Colors.yellowAccent,
                       ),
-                      markerOption: MarkerOption(
+                       markerOption: MarkerOption(
                         defaultMarker: const MarkerIcon(
                           icon: Icon(
                             Icons.person_pin_circle,
@@ -191,6 +186,9 @@ class _PrimaryMapViewState extends State<PrimaryMapView> {
                           ),
                         ),
                       ),
+                      ),
+                     
+                     
                     ),
                     Column(
                       children: [
