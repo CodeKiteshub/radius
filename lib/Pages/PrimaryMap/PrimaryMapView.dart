@@ -173,22 +173,26 @@ class _PrimaryMapViewState extends State<PrimaryMapView> {
                     OSMFlutter(
                       controller: mapController,
                       osmOption: OSMOption(
-                         roadConfiguration: const RoadOption(
-                       
-                        roadColor: Colors.yellowAccent,
-                      ),
-                       markerOption: MarkerOption(
-                        defaultMarker: const MarkerIcon(
-                          icon: Icon(
-                            Icons.person_pin_circle,
-                            color: Colors.blue,
-                            size: 56,
+                        userLocationMarker: UserLocationMaker(
+                          personMarker: const MarkerIcon(
+                            icon: Icon(
+                              Icons.person_pin_circle,
+                              color: Colors.blue,
+                              size: 56,
+                            ),
+                          ),
+                          directionArrowMarker: const MarkerIcon(
+                            icon: Icon(
+                              Icons.person_pin_circle,
+                              color: Colors.blue,
+                              size: 56,
+                            ),
                           ),
                         ),
+                        roadConfiguration: const RoadOption(
+                          roadColor: Colors.yellowAccent,
+                        ),
                       ),
-                      ),
-                     
-                     
                     ),
                     Column(
                       children: [

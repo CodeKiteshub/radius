@@ -105,6 +105,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void dispose() {
+    _audioRecorder.dispose();
     _timer?.cancel();
     clockTimer?.cancel();
     super.dispose();
@@ -702,20 +703,22 @@ class _DashboardState extends State<Dashboard> {
     return numberStr;
   }
 
+
+  AudioRecorder _audioRecorder = AudioRecorder();
+
   Future<void> _start() async {
     try {
-      if (await Record().hasPermission()) {
+      if (await _audioRecorder.hasPermission()) {
         localPath = await createFolderInAppDocDir('Audio');
-        var data = await Record().start(
+        var data = await _audioRecorder.start(RecordConfig(),
           path: '$localPath/tempAUD.mp3', // required
-          encoder: AudioEncoder.aacLc, // by default
-          bitRate: 128000, // by default
+        
           //  sampleRate: 44100, // by default
         );
 
         audioPath = '$localPath/tempAUD.mp3';
 
-        bool isRecording = await Record().isRecording();
+        bool isRecording = await _audioRecorder.isRecording();
         setState(() {
           _isRecording = isRecording;
           _recordDuration = 0;
@@ -730,21 +733,21 @@ class _DashboardState extends State<Dashboard> {
 
   Future<void> _stop() async {
     _timer?.cancel();
-    await Record().stop();
+    await _audioRecorder.stop();
 
     setState(() => _isRecording = false);
   }
 
   Future<void> _pause() async {
     _timer?.cancel();
-    await Record().pause();
+    await _audioRecorder.pause();
 
     setState(() => _isPaused = true);
   }
 
   Future<void> _resume() async {
     _startTimer();
-    await Record().resume();
+    await _audioRecorder.resume();
 
     setState(() => _isPaused = false);
   }

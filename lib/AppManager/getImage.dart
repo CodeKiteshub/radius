@@ -19,12 +19,12 @@ class MyImagePicker{
     }
   }
   _cropImage(filePath) async {
-    File? croppedImage = await ImageCropper().cropImage(
+    CroppedFile? croppedImage = await ImageCropper().cropImage(
       sourcePath: filePath,
       maxWidth: 1080,
       maxHeight: 1080,
     );
-    return croppedImage;
+    return File(croppedImage!.path);
   }
 
   Future getCameraImage() async {
